@@ -139,7 +139,7 @@ const mapStateToProps = (state) => {
     const{
       email,
       password
-    } =state.auth;
+    } = state.auth;
     return{
       email,
       password

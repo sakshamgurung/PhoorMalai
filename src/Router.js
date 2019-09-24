@@ -12,9 +12,12 @@ import LoginScreen from './screens/LoginScreen';
 import MapWrap from './screens/MapWrap';
 import Current from './screens/Current';
 import History from './screens/History';
+import Customer from './screens/Customer';
+import Collector from './screens/Collector';
+import MainForm from './screens/MainForm';
+
 import MenuButton from '../src/components/MenuButton';
 
-import mainForm from './screens/mainForm';
 
 useScreens();
 
@@ -79,12 +82,63 @@ const CurrentStackNav= createStackNavigator({
     })
   }
 })
+const CustomerStackNav= createStackNavigator({
+  Customer:{
+    screen:Customer,
+    navigationOptions:({navigation})=>({
+        headerTransparent:{
+          position:'absolute',
+          backgroundColor: 'transparent',
+          zIndex:100,
+          top:0,
+          left:0,
+          right:0
+      },
+      headerLeft:<MenuButton navigationProps={navigation} />
+    })
+  }
+})
+const CollectorStackNav= createStackNavigator({
+  Collector:{
+    screen:Collector,
+    navigationOptions:({navigation})=>({
+        headerTransparent:{
+          position:'absolute',
+          backgroundColor: 'transparent',
+          zIndex:100,
+          top:0,
+          left:0,
+          right:0
+      },
+      headerLeft:<MenuButton navigationProps={navigation} />
+    })
+  }
+})
 
+const FormNav = createStackNavigator({
+  Form:{
+    screen:MainForm,
+    navigationOptions:({navigation})=>({
+        headerTransparent:{
+          position:'absolute',
+          backgroundColor: 'transparent',
+          zIndex:100,
+          top:0,
+          left:0,
+          right:0
+      },
+      headerLeft:<MenuButton navigationProps={navigation} />
+    })
+  }
+})
 
 const DrawerNav = createDrawerNavigator({
+  MapDrawer: MapStackNav,
   CurrentDrawer: CurrentStackNav,
   HistoryDrawer: HistoryStackNav,
-  MapDrawer: MapStackNav
+  FormDrawer: FormNav,
+  CustomerDrawer: CustomerStackNav,
+  CollectorDrawer: CollectorStackNav,
 });
 
 // const Switch = createSwitchNavigator({
@@ -92,9 +146,6 @@ const DrawerNav = createDrawerNavigator({
 //   Main: DrawerNav
 // });
 
-const FormNav = createStackNavigator({
-  form:mainForm
-})
 
 
 

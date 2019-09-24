@@ -20,7 +20,7 @@ let i = 0;
 export const currentDataLoading = () => {
   return (dispatch) => {
     //let token = await AsyncStorage('token');
-    let token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQ1YTg3NDY2YjE5ODYyNDYwNjlkYjFhIn0sImlhdCI6MTU2NzA3NDk4OSwiZXhwIjoxNTY3MzM0MTg5fQ.nwIvijvP7ZgTb0TnihhWK3hAMiK-mxTWNuFqenUNVFM'
+    let token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQ4MmYzZmM1YzZmODMwODVjMmU4N2ZhIn0sImlhdCI6MTU2OTIxMjI0NCwiZXhwIjoxNTY5NDcxNDQ0fQ.xk7-Yezdpg49PB6eSNUTumab4Tak3Q8H-W_vnu9pMiE'
     axios.get('http://10.0.2.2:5000/api/spot/current',{headers:{'x-auth-token':token}})
     .then((res)=> onSuccess(dispatch,res.data))
     .catch(()=> onFail(dispatch));

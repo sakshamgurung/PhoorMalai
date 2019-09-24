@@ -16,7 +16,7 @@ export const getUserLocation = ({lon,lat})=>{
 export const getSpotLocation = ({lon,lat})=>{
   return (dispatch) => {
     try {
-      axios.post('http://10.0.2.2:5000/api/spot_list/list', {
+      axios.post('http://10.0.2.2:5000/api/spot_list/near_spot_list', {
         lon: lon, 
         lat: lat
       }, {

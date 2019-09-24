@@ -31,7 +31,14 @@ class MapTest extends Component {
     } = this.props;
     this.props.getSpotLocation({lon,lat});
   }
-
+  gotoFormScreen = (data)=>{
+    this.props.navigationProps.navigate("Form",{
+      spot_ref:data._id,
+      spot_street:data.address[0].street,
+      spot_city:data.address[0].city,
+      spot_district:data.address[0].district
+    });
+  }
   render() {
     // if(this.props.loadSpotMarker){
      let dumpingMarkers = this.props.dumpSiteLocation.map(data=>(
@@ -39,6 +46,7 @@ class MapTest extends Component {
             key={data._id}
             coordinate={{latitude:data.loc[0],longitude:data.loc[1]}}
             description={data._id} 
+            onPress={()=> this.gotoFormScreen(data)}
           >
             <View style={styles.trashIconStyles}>
               <FontAwesome5Icon name='trash-restore' color='rgb(255, 255, 255)' size={15}/>

@@ -31,7 +31,7 @@ class MapWrap extends Component {
     if(this.state.hasMapPermission){
       return (
         <View style={styles.container}>
-          <MapTest />
+          <MapTest navigationProps={this.props.navigation}/>
         </View>
       )
     }else{
