@@ -52,19 +52,16 @@ class Customer extends Component{
   return(
     <ImageBackground style={styles.backStyle} source={require('../images/final.png')}>
          <View style={{flexDirection:'row',flex:0.2,paddingLeft:20,paddingTop:20}}>
-            {/* back button */}
-            <TouchableOpacity onPress={()=>{this.onPressBack()}}>
-              <Image style={{width:25,height:25}} source={require('../images/left-arrow.png')} />
-          </TouchableOpacity>
-          <View style={{justifyContent:'center',alignItems:'center',paddingLeft:30,borderWidth:1,borderColor:'white',marginLeft:10,width:330,height:35}}>
+          <View style={{justifyContent:'center',alignItems:'center',paddingLeft:30,marginLeft:10,width:330,height:35}}>
               <Text style={{color:'white',fontWeight:'bold',fontSize:20}}>
                 {spot_street+","+spot_city}
                 </Text>
+                <Text style={{color:'#5EBE78', fontWeight:'100', fontSize:20}}>{this.props.message}</Text>
           </View>
          </View>
 
          <View style={styles.viewStyle}>
-          <View style={{width:'100%',height:'100%',padding:20,borderWidth:1,borderTopLeftRadius:20,borderTopRightRadius:20,borderColor:'white'}}>
+          <View style={{width:'100%',height:'100%',padding:20,borderTopLeftRadius:20,borderTopRightRadius:20}}>
             {/* header */}
             <View style={{width:'100%',alignItems:'center'}}>
               <Text style={{fontWeight:'bold',fontSize:23,color:'white'}}>Fill your waste details</Text>
@@ -72,8 +69,7 @@ class Customer extends Component{
             {/* waste type picker */}
             <View style={{flexDirection:'row',paddingTop:20}}>
               <Text style={{fontSize:20,color:'white',padding:5}}>
-                Waste type: 
-                {/* <Text style={{fontWeight:'bold',padding:5}}>{this.props.wasteType}</Text> */}
+                Waste type:
               </Text>
               <CollectorButton onPress={()=>{this.togglePicker(true)}}>{this.props.wasteType}</CollectorButton>
             </View>
@@ -162,12 +158,14 @@ const mapStateToProps = (state) => {
   const {
     quantity,
     displayPicker,
-    wasteType
+    wasteType,
+    message
   } = state.form;
   return {
     quantity,
     displayPicker,
-    wasteType
+    wasteType,
+    message
   }
 }
 

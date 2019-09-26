@@ -3,6 +3,7 @@ import {Text,View,ImageBackground,TouchableOpacity,Image,TextInput,StyleSheet} f
 import {connect} from 'react-redux';
 import {displayCollectorDialog,collectorEmailChanged, checkEmail} from '../actions';
 import NewButton from '../components/NewButton';
+import CustomerInputDialog from '../components/CustometInputDialog';
 import CheckButton from '../components/CheckButton';
 import Card from '../components/Card';
 import CardSection from '../components/CardSection';
@@ -13,12 +14,6 @@ let spot_city = null;
 let spot_district = null;
 
 class MainForm extends Component{
-
-    componentDidMount(){
-        if(this.props.redirect){
-            this.gotoCollectorScreen();
-        }
-    }
 
     onPressBack=()=>{
         this.props.navigation.navigate('Map')
@@ -38,16 +33,16 @@ class MainForm extends Component{
         if(this.props.collectorDialog){
             return(
                 <View style={styles.collectorDialogStyle}>
-                    <Card>
-                        <CardSection>
-                            <TextInput 
-                            value={this.props.collector_email} 
-                            onChangeText={this.onCollectorEmailChange.bind(this)}/>
-                        </CardSection>
-                        <CardSection>
-                            <CheckButton onPress={() => this.onCheck()}>Check</CheckButton>
-                        </CardSection>
-                    </Card>
+                    <View style={{alignItems:'center'}}>
+                        <CustomerInputDialog 
+                        placeholder={"collector@gmail.com"}
+                        value={this.props.collector_email} 
+                        onChangeText={this.onCollectorEmailChange.bind(this)} />
+                        <Text style={{color:'#d32f2f',fontSize:15,fontWeight:"100"}}>{this.props.notFoundMessage}</Text>
+                    </View>
+                    <View style={{alignItems:'center',marginTop:20}}>
+                        <NewButton onPress={() => this.onCheck()}>Check</NewButton>
+                    </View>
                 </View>
             );
        }
@@ -70,14 +65,6 @@ class MainForm extends Component{
             spot_district
         });
     }
-    // gotoCollectorScreen = ()=>{
-    //     this.props.navigation.navigate("Collector",{
-    //         spot_ref,
-    //         spot_street,
-    //         spot_city,
-    //         spot_district
-    //     });
-    // }
    render(){
     const {navigation} = this.props;
     spot_ref = navigation.getParam("spot_ref");
@@ -87,10 +74,7 @@ class MainForm extends Component{
     return(
         <ImageBackground source={require('../images/final.png')} style={{flex:1,flexDirection:'column'}}>
             <View style={{flexDirection:'row',flex:0.2,paddingTop:20,paddingLeft:20}}>
-                <TouchableOpacity onPress={()=>{this.onPressBack()}}>
-                    <Image style={{width:25,height:25}} source={require('../images/left-arrow.png')} />
-                </TouchableOpacity>
-                <View style={{justifyContent:'center',alignItems:'center',paddingLeft:30,borderWidth:1,borderColor:'white',marginLeft:10,width:330,height:35}}>
+                <View style={{justifyContent:'center',alignItems:'center',paddingLeft:30,marginLeft:10,width:330,height:35}}>
                     <Text style={{color:'white',fontWeight:'bold',fontSize:20}}>
                     {spot_street+","+spot_city}
                     </Text>
@@ -100,7 +84,7 @@ class MainForm extends Component{
                 <View style={{borderBottomWidth:2,borderColor:'white',marginBottom:10}}><Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>USE AS</Text></View>
                 <View><NewButton onPress={()=> this.gotoCustomerScreen()}>As User</NewButton></View>
                 <View><NewButton  onPress={()=>{this.collectorDialog()}}>As Collector</NewButton></View>
-                <View style={{height:50,width:'50%'}}>{this.displayDialog()}</View>
+                <View style={{height:50,width:'60%'}}>{this.displayDialog()}</View>
             </View> 
         </ImageBackground>
     );
@@ -109,22 +93,18 @@ class MainForm extends Component{
 const styles = StyleSheet.create({
     collectorDialogStyle:{
         justifyContent:'space-between'
-    },
-    checkButtonStyle:{
-        backgroundColor:'green',
-        color:'white'
     }
 })
 const mapStateToProps = (state) => {
     const {
         collectorDialog,
         collector_email,
-        redirect
+        notFoundMessage
     } = state.mainForm;
     return {
         collectorDialog,
         collector_email,
-        redirect
+        notFoundMessage
     }
 }
 

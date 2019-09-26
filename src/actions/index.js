@@ -1,4 +1,5 @@
 export * from './AuthActions';
+export * from './ProfileActions';
 export * from './MapActions';
 export * from './GraphAction';
 export * from './HistoryGraphAction';

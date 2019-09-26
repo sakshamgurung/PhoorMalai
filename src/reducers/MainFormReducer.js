@@ -1,13 +1,14 @@
 import {
   TOGGLE_COLLECTOR_DIALOG,
   COLLECTOR_EMAIL_CHANGED,
-  COLLECTOR_EMAIL_EXIST
+  COLLECTOR_EMAIL_EXIST,
+  COLLECTOR_EMAIL_NOT_FOUND
 } from '../actions/types';
 
 const INITIAL_STATE = {
   collectorDialog: false,
   collector_email:'',
-  redirect:false
+  notFoundMessage:''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -17,7 +18,9 @@ export default (state = INITIAL_STATE, action) => {
     case COLLECTOR_EMAIL_CHANGED:
       return {...state, collector_email:action.payload}
     case COLLECTOR_EMAIL_EXIST:
-      return {...state, redirect:action.payload}
+      return {...state}
+    case COLLECTOR_EMAIL_NOT_FOUND:
+      return {...state, notFoundMessage:action.payload}
     default:
       return state;
   }

@@ -9,7 +9,8 @@ const INITIAL_STATE = {
   organic: 0,
   recycle: 0,
   unrecycle: 0,
-  other: 0
+  other: 0,
+  collectMessage:''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -20,9 +21,9 @@ export default (state = INITIAL_STATE, action) => {
     case LOCATION_WASTE_DATA_FAILED:
       return {...state};
     case COLLECT_WASTE:
-      return {...state, organic:0, recycle:0, unrecycle:0, other:0};
+      return {...state, organic:0, recycle:0, unrecycle:0, other:0, collectMessage:"Collection Successful"};
     case COLLECT_WASTE_FAIL:
-      return {...state};
+      return {...state, collectMessage:"No Success"};
     default:
       return state;
   }

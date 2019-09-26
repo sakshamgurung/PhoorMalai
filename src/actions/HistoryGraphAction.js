@@ -18,12 +18,16 @@ let i = 0;
 
 
 export const historyDataLoading = () => {
-  return (dispatch) => {
-    //let token = await AsyncStorage('token');
-    let token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQ4MmYzZmM1YzZmODMwODVjMmU4N2ZhIn0sImlhdCI6MTU2OTIxMjI0NCwiZXhwIjoxNTY5NDcxNDQ0fQ.xk7-Yezdpg49PB6eSNUTumab4Tak3Q8H-W_vnu9pMiE'
-    axios.get('http://10.0.2.2:5000/api/spot/history',{headers:{'x-auth-token':token}})
-    .then((res)=> onSuccess(dispatch,res.data))
-    .catch(()=> onFail(dispatch));
+  return async(dispatch) => {
+    try {
+      let token = await AsyncStorage.getItem('token');
+      //let token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQ4MmYzZmM1YzZmODMwODVjMmU4N2ZhIn0sImlhdCI6MTU2OTIxMjI0NCwiZXhwIjoxNTY5NDcxNDQ0fQ.xk7-Yezdpg49PB6eSNUTumab4Tak3Q8H-W_vnu9pMiE'
+      axios.get('http://10.0.2.2:5000/api/spot/history',{headers:{'x-auth-token':token}})
+      .then((res)=> onSuccess(dispatch,res.data))
+      .catch(()=> onFail(dispatch));
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
@@ -64,6 +68,10 @@ const processGraphData = () => {
 const onSuccess = (dispatch, data) => {
   processData(data);
   processGraphData();
+  console.log(organic);
+  console.log(recycle);
+  console.log(unrecycle);
+  console.log(other);
   dispatch({
     type: HISTORY_GRAPH_DATA_LOADED,
     payload: {organic, recycle, unrecycle, other}

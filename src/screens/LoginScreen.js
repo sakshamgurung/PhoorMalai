@@ -30,7 +30,7 @@ class LoginScreen extends Component{
         await AsyncStorage.setItem('token',token);
         await AsyncStorage.setItem('email',email);
         this.setState({loadingLogin:false,loginMsg:''});
-        this.props.navigation.navigate('MapStackNav');
+        this.props.navigation.navigate('MapDrawer');
     }
 
     onFailSignIn(){
@@ -90,7 +90,7 @@ class LoginScreen extends Component{
                           {this.renderButton()}
                         </CardSection> 
                         <CardSection>
-                            <Text style={{color:'red',alignItems:'center'}}>
+                            <Text style={{color:'#d32f2f',fontSize:15, alignItems:'center'}}>
                             {this.state.loginMsg}
                             </Text>
                         </CardSection>    

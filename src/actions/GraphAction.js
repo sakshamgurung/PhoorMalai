@@ -18,12 +18,16 @@ let i = 0;
 
 
 export const currentDataLoading = () => {
-  return (dispatch) => {
-    //let token = await AsyncStorage('token');
-    let token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQ4MmYzZmM1YzZmODMwODVjMmU4N2ZhIn0sImlhdCI6MTU2OTIxMjI0NCwiZXhwIjoxNTY5NDcxNDQ0fQ.xk7-Yezdpg49PB6eSNUTumab4Tak3Q8H-W_vnu9pMiE'
-    axios.get('http://10.0.2.2:5000/api/spot/current',{headers:{'x-auth-token':token}})
-    .then((res)=> onSuccess(dispatch,res.data))
-    .catch(()=> onFail(dispatch));
+  return async(dispatch) => {
+    try {
+      let token = await AsyncStorage.getItem('token');
+      //let token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQ4MmYzZmM1YzZmODMwODVjMmU4N2ZhIn0sImlhdCI6MTU2OTIxMjI0NCwiZXhwIjoxNTY5NDcxNDQ0fQ.xk7-Yezdpg49PB6eSNUTumab4Tak3Q8H-W_vnu9pMiE'
+      axios.get('http://10.0.2.2:5000/api/spot/current',{headers:{'x-auth-token':token}})
+      .then((res)=> onSuccess(dispatch,res.data))
+      .catch(()=> onFail(dispatch));
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

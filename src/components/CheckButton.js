@@ -12,7 +12,6 @@ const CheckButton = ({ onPress,children }) => {
 
 
 const styles ={
-
     textStyle:{
         alignSelf:'center',
         color:'white',
@@ -23,7 +22,8 @@ const styles ={
             backgroundColor:"#5EBE78",
              flex:1,
              height:40,
-             marginBottom:30,
+             marginTop:20,
+             marginBottom:20,
              justifyContent:'center',
              alignItems:'center',
              borderRadius:5,

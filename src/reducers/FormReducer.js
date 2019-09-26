@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   quantity:'',
   displayPicker:false,
   wasteType:'Select',
+  message:''
 }
 export default (state = INITIAL_STATE, action) => {
   switch(action.type){
@@ -19,9 +20,9 @@ export default (state = INITIAL_STATE, action) => {
     case QUANTITY_CHANGED: 
       return {...state, quantity:action.payload};
     case FORM_SUBMITTED:
-      return {...state, quantity:'', displayPicker:false, wasteType:'Select'}
+      return {...state, quantity:'', displayPicker:false, wasteType:'Select', message:'Successful'}
     case FORM_NOT_SUBMITTED:
-      console.log('form not submitted')
+      return {...state, message:'No Success'}
     default:
       return state;
   }

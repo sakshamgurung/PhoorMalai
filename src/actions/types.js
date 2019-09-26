@@ -27,3 +27,7 @@ export const COLLECT_WASTE_FAIL = 'collect_waste_fail';
 export const TOGGLE_COLLECTOR_DIALOG = 'toggle_collector_dialog';
 export const COLLECTOR_EMAIL_CHANGED = 'collector_email_changed';
 export const COLLECTOR_EMAIL_EXIST = 'collector_email_exist';
+export const COLLECTOR_EMAIL_NOT_FOUND = 'collector_email_not_found';
+
+export const PROFILE_LOADED = 'profile_loaded';
+export const PROFILE_FAIL = 'profile_fail';

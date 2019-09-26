@@ -13,6 +13,9 @@ let spot_city = null;
 let spot_district = null;
 let collector_email = null;
 class Collector extends Component{
+  componentDidMount(){
+    this.props.showLocationWasteData({spot_ref, collector_email});
+  }
   onPressBack = ()=>{
     this.props.navigation.navigate('MainForm');
   }
@@ -32,14 +35,12 @@ class Collector extends Component{
   return(
     <ImageBackground style={styles.backStyle} source={require('../images/final.png')}>
         <View style={{flexDirection:'row',flex:0.2,paddingLeft:20,paddingTop:20}}>
-        <TouchableOpacity onPress={()=>{this.onPressBack()}}>
-            <Image style={{width:25,height:25}} source={require('../images/left-arrow.png')} />
-        </TouchableOpacity>
-        <View style={{justifyContent:'center',alignItems:'center',paddingLeft:30,borderWidth:1,borderColor:'white',marginLeft:10,width:330,height:35}}>
-            <Text style={{color:'white',fontWeight:'bold',fontSize:20}}>
-              {spot_street+","+spot_city}
+          <View style={{justifyContent:'center',alignItems:'center',paddingLeft:30,marginLeft:10,width:330,height:35}}>
+            <Text style={{color:'white',fontWeight:'100',fontSize:20,marginBottom:20}}>
+              {spot_street+", "+spot_city}
             </Text>
-        </View>
+            <Text style={{color:'#5EBE78', fontWeight:'100', fontSize:20}}>{this.props.collectMessage}</Text>
+          </View>
         </View>
         <View style={styles.viewStyle}>
         <CollectorCard>
@@ -95,11 +96,7 @@ const styles = StyleSheet.create({
      flex:1
     },
     viewStyle:{
-      flex:0.9,
-      borderWidth:1,
-      borderColor:'white',
-      borderTopRightRadius:20,
-      borderTopLeftRadius:20,  
+      flex:0.9, 
       justifyContent:'center',
       alignItems:'center'
       }
@@ -110,13 +107,15 @@ const mapStateToProps = (state)=>{
     recycle,
     unrecycle,
     organic,
-    other
+    other,
+    collectMessage
   } = state.collector;
   return{
     recycle,
     unrecycle,
     organic,
-    other
+    other,
+    collectMessage
   }
 }
 

@@ -5,7 +5,6 @@ import ChartWrap from './ChartWrap';
 import {connect} from 'react-redux';
 import {currentDataLoading} from '../actions';
 import ColorIndex from '../components/ColorIndex';
-
 class Current extends Component {
 
   componentDidMount(){
