@@ -11,7 +11,8 @@ export const getProfile = () => {
     try {
       let token = await AsyncStorage.getItem('token');
       //let token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQ4MmYzZmM1YzZmODMwODVjMmU4N2ZhIn0sImlhdCI6MTU2OTIxMjI0NCwiZXhwIjoxNTY5NDcxNDQ0fQ.xk7-Yezdpg49PB6eSNUTumab4Tak3Q8H-W_vnu9pMiE'
-      axios.get('http://10.0.2.2:5000/api/profile/me',{headers:{'x-auth-token':token}})
+      //axios.get('http://10.0.2.2:5000/api/profile/me',{headers:{'x-auth-token':token}})
+      axios.get('http://192.168.3.13:5000/api/profile/me',{headers:{'x-auth-token':token}})
       .then((res)=> {console.log(res);onSuccess(dispatch,res.data)})
       .catch(()=> onFail(dispatch));
     } catch (error) {

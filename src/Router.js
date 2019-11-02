@@ -14,7 +14,7 @@ import LoginScreen from './screens/LoginScreen';
 import Profile from './screens/Profile';
 import MapWrap from './screens/MapWrap';
 import Current from './screens/Current';
-import History from './screens/History';
+import History from './screens/History'; 
 import Customer from './screens/Customer';
 import Collector from './screens/Collector';
 import MainForm from './screens/MainForm';
@@ -198,17 +198,17 @@ const Main = createStackNavigator({
 const CustomDrawerComponent = (props)=>{
   return(
     <SafeAreaView style={{flex:1}}>
-      <View style={{backgroundColor:'#2c2c2e',alignItems:'center', justifyContent:'center',marginBottom:10}}>
+      <View style={{backgroundColor:'#fff',alignItems:'center', justifyContent:'center',marginBottom:10}}>
         <MaterialIcon name='account-box' size={50} color={'#e91e63'}/>
       </View>
-      <View style={{backgroundColor:'#2c2c2e'},{flexDirection:'row'}}>
-        <AntDesignIcon name="logout" size={15} color="#d32f2f" style={{marginLeft:20, paddingTop:3}}/>
+      <View style={{backgroundColor:'#fff'},{flexDirection:'row'}}>
+        <AntDesignIcon name="logout" size={15} color="#fff" style={{marginLeft:20, paddingTop:3}}/>
         <TouchableOpacity 
         onPress={()=>{
           AsyncStorage.clear();
           props.navigation.navigate('Login')} 
         }>
-          <Text style={{marginLeft:35,fontSize:15,fontWeight:'bold',color:"#d32f2f"}}>Logout</Text>
+          <Text style={{marginLeft:35,fontSize:15,fontWeight:'bold',color:"#fff"}}>Logout</Text>
         </TouchableOpacity>
       </View>
       <ScrollView>
@@ -219,17 +219,17 @@ const CustomDrawerComponent = (props)=>{
 }
 
 const DrawerNav = createDrawerNavigator({
+  CurrentDrawer: CurrentStackNav,
+  HistoryDrawer: HistoryStackNav,
   MapDrawer:Main,
   ProfileDrawer:ProfileStackNav,
-  CurrentDrawer: CurrentStackNav,
-  HistoryDrawer: HistoryStackNav
 },{
   contentComponent:CustomDrawerComponent,
   drawerWidth:width*0.7,
-  drawerBackgroundColor:"#2c2c2e",
+  drawerBackgroundColor:"#2196f3",
   contentOptions:{
-    activeTintColor:'#05ffa3',
-    inactiveTintColor:'#ff7e47',
+    activeTintColor:'#e3f2fd',
+    inactiveTintColor:'#fff',
     labelStyle:{
       fontSize:15
     }
@@ -237,7 +237,7 @@ const DrawerNav = createDrawerNavigator({
 });
 
 const Switch = createSwitchNavigator({
-  Auth: Auth,
+  //Auth: Auth,
   MainFlow: DrawerNav
 });
 

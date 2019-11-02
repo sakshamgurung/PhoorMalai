@@ -31,6 +31,7 @@ export const passwordChanged = (text) => {
 //         const body = JSON.stringify(user);
 //         const config = {headers:{'Content-Type':'application/json'}};
 //         axios.post('http://10.0.2.2:5000/api/auth',body,config)
+//          axios.post('http://192.168.3.13:5000/api/auth',body,config)
 //         .then((res) => loginUserSuccess(dispatch, res))
 //         .catch(() => loginUserFail(dispatch));
         
