@@ -2,12 +2,12 @@ import React,{Component} from 'react';
 import {TextInput,Text,View} from 'react-native';
 
 
-const CustomerInputDialog = ({placeholder,label,value,onChangeText,secureTextEntry,onSubmitEditing})=> {
+const CustomerInputDialog = ({keyType,placeholder,label,value,onChangeText,secureTextEntry,onSubmitEditing})=> {
     const {labelStyles,viewStyle,inputStyle} = styles;
     return(
        <View>
          <TextInput 
-         keyboardType={'numeric'} 
+         keyboardType={keyType||'numeric'} 
          onSubmitEditing={onSubmitEditing} 
          secureTextEntry={secureTextEntry} 
          placeholder={placeholder} 

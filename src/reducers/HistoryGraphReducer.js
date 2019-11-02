@@ -4,7 +4,7 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  organic:10,
+  organic:0,
   recycle:0,
   unrecycle:0,
   other:0,

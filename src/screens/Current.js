@@ -14,8 +14,7 @@ class Current extends Component {
   
   render() {
     return (
-      <View
-      style={{flex:1, backgroundColor:"#2196f3"}}>
+      <View style={{flex:1, backgroundColor:"#2196f3"}}>
         <Text style={{color:"#ffffff", textAlign:"center", fontSize:25, fontWeight:"100",marginTop:30}}> 
         Current 
         </Text>

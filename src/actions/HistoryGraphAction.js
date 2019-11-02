@@ -22,10 +22,10 @@ let i = 0;
 
 
 export const historyDataLoading = (monthId) => {
-  return (dispatch) => {
+  return async(dispatch) => {
     try {
-      //let token = await AsyncStorage.getItem('token');
-      let token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQ1YTg3NDY2YjE5ODYyNDYwNjlkYjFhIn0sImlhdCI6MTU3MjU3Nzc4NSwiZXhwIjoxNTcyODM2OTg1fQ.S4VreC7kcOsPKBTFP_UGCzof27FIUQlPsAlPhoXRsTI'
+      let token = await AsyncStorage.getItem('token');
+      //let token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQ1YTg3NDY2YjE5ODYyNDYwNjlkYjFhIn0sImlhdCI6MTU3MjU3Nzc4NSwiZXhwIjoxNTcyODM2OTg1fQ.S4VreC7kcOsPKBTFP_UGCzof27FIUQlPsAlPhoXRsTI'
       //axios.get('http://10.0.2.2:5000/api/spot/history',{headers:{'x-auth-token':token}})
       axios.get('http://192.168.3.13:5000/api/spot/history',{headers:{'x-auth-token':token}})
       .then((res)=> onSuccess(dispatch,res.data,monthId))
@@ -38,8 +38,8 @@ export const historyDataLoading = (monthId) => {
 
 const sliceAndConvertMonth = (wasteData) => {
   s = wasteData.date.slice(5,7);
-  if(s.length == 2){
-    i = Number( s.charAt(1));
+  if(s.charAt(1) === "0"){
+    i = Number( s.charAt(2));
   }else{
     i = Number(s);
   }

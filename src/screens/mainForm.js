@@ -34,7 +34,8 @@ class MainForm extends Component{
             return(
                 <View style={styles.collectorDialogStyle}>
                     <View style={{alignItems:'center'}}>
-                        <CustomerInputDialog 
+                        <CustomerInputDialog
+                        keyType={'default'} 
                         placeholder={"collector@gmail.com"}
                         value={this.props.collector_email} 
                         onChangeText={this.onCollectorEmailChange.bind(this)} />

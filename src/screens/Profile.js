@@ -11,7 +11,7 @@ class Profile extends Component {
     return (
       <View style={styles.containerStyle}>
         <View>
-          <MaterialIcon name='account-box' size={100} color={'#e91e63'}/>
+          <MaterialIcon name='account-box' size={100} color={'#fff'}/>
         </View>
         <View>
           <Text style={{color:"white", fontSize:25, padding:5}}>Profile</Text>
@@ -49,7 +49,7 @@ class Profile extends Component {
 const styles = StyleSheet.create({
   containerStyle:{
     flex:1,
-    backgroundColor:'#2c2c2e',
+    backgroundColor:'#2196f3',
     justifyContent:'center',
     alignItems:'center'
   }

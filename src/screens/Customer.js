@@ -25,17 +25,18 @@ class Customer extends Component{
   }
   render(){
     const {navigation} = this.props;
+    let msg = null;
     let spot_ref = navigation.getParam("spot_ref");
     let spot_street = navigation.getParam("spot_street");
     let spot_city = navigation.getParam("spot_city");
     let spot_district = navigation.getParam("spot_district");
-
+    
     const wasteTypes = [{
-        title:'organic',
-        value:'organic'
-      },
-      {
-        title:'recycle',
+      title:'organic',
+      value:'organic'
+    },
+    {
+      title:'recycle',
         value:'recycle'
       },
       {
@@ -46,17 +47,23 @@ class Customer extends Component{
         title:'other',
         value:'other'
       }
-
+      
     ]
-
-  return(
-    <ImageBackground style={styles.backStyle} source={require('../images/final.png')}>
+    if(this.props.message === ''){
+      msg = <Text></Text>;
+    }else if(this.props.message === 'Successful'){
+      msg = <Text style={{color:'#5EBE78', fontWeight:'100', fontSize:20}}>{this.props.message}</Text>;
+    }else if(this.props.message === 'No Success'){
+      msg = <Text style={{color:'#d32f2f', fontWeight:'100', fontSize:20}}>{this.props.message}</Text>;
+    }
+    return(
+      <ImageBackground style={styles.backStyle} source={require('../images/final.png')}>
          <View style={{flexDirection:'row',flex:0.2,paddingLeft:20,paddingTop:20}}>
           <View style={{justifyContent:'center',alignItems:'center',paddingLeft:30,marginLeft:10,width:330,height:35}}>
               <Text style={{color:'white',fontWeight:'bold',fontSize:20}}>
                 {spot_street+","+spot_city}
                 </Text>
-                <Text style={{color:'#5EBE78', fontWeight:'100', fontSize:20}}>{this.props.message}</Text>
+              {msg}
           </View>
          </View>
 
@@ -125,9 +132,9 @@ const styles = StyleSheet.create({
       flexDirection:'column',   
     },
     viewStyle:{
-        flex:0.9,  
-       justifyContent:'center',
-       alignItems:'center'
+      flex:0.9,  
+      justifyContent:'center',
+      alignItems:'center'
     },
     modalStyle:{
       shadowColor:'#0000',

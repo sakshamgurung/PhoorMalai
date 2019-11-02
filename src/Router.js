@@ -18,6 +18,12 @@ import History from './screens/History';
 import Customer from './screens/Customer';
 import Collector from './screens/Collector';
 import MainForm from './screens/MainForm';
+import Info from './screens/Info';
+import HowTo from './screens/HowTo';
+import RecycleInfo from './screens/RecycleInfo';
+import UnrecycleInfo from './screens/UnrecycleInfo';
+import OrganicInfo from './screens/OrganicInfo';
+import Other from './screens/Other';
 
 import MenuButton from '../src/components/MenuButton';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
@@ -176,6 +182,102 @@ const FormStackNav = createStackNavigator({
     })
   }
 })
+const InfoStackNav = createStackNavigator({
+  Info:{
+    screen:Info,
+    navigationOptions:({navigation})=>({
+        headerTransparent:{
+          position:'absolute',
+          backgroundColor: 'transparent',
+          zIndex:100,
+          top:0,
+          left:0,
+          right:0
+      },
+      headerLeft:<MenuButton navigationProps={navigation} />
+    })
+  }
+})
+const HowToStackNav = createStackNavigator({
+  HowTo:{
+    screen:HowTo,
+    navigationOptions:({navigation})=>({
+        headerTransparent:{
+          position:'absolute',
+          backgroundColor: 'transparent',
+          zIndex:100,
+          top:0,
+          left:0,
+          right:0
+      },
+      headerLeft:<MenuButton navigationProps={navigation} />
+    })
+  }
+})
+const RecycleStackNav = createStackNavigator({
+  RecycleInfo:{
+    screen:RecycleInfo,
+    navigationOptions:({navigation})=>({
+        headerTransparent:{
+          position:'absolute',
+          backgroundColor: 'transparent',
+          zIndex:100,
+          top:0,
+          left:0,
+          right:0
+      },
+      headerLeft:<MenuButton navigationProps={navigation} />
+    })
+  }
+})
+const UnrecycleStackNav = createStackNavigator({
+  UnrecycleInfo:{
+    screen:UnrecycleInfo,
+    navigationOptions:({navigation})=>({
+        headerTransparent:{
+          position:'absolute',
+          backgroundColor: 'transparent',
+          zIndex:100,
+          top:0,
+          left:0,
+          right:0
+      },
+      headerLeft:<MenuButton navigationProps={navigation} />
+    })
+  }
+})
+const OrganicStackNav = createStackNavigator({
+  OrganicInfo:{
+    screen:OrganicInfo,
+    navigationOptions:({navigation})=>({
+        headerTransparent:{
+          position:'absolute',
+          backgroundColor: 'transparent',
+          zIndex:100,
+          top:0,
+          left:0,
+          right:0
+      },
+      headerLeft:<MenuButton navigationProps={navigation} />
+    })
+  }
+})
+const OtherStackNav = createStackNavigator({
+  Other:{
+    screen:Other,
+    navigationOptions:({navigation})=>({
+        headerTransparent:{
+          position:'absolute',
+          backgroundColor: 'transparent',
+          zIndex:100,
+          top:0,
+          left:0,
+          right:0
+      },
+      headerLeft:<MenuButton navigationProps={navigation} />
+    })
+  }
+})
 
 const Main = createStackNavigator({
   MapScreen: MapStackNav,
@@ -194,12 +296,31 @@ const Main = createStackNavigator({
     )
   }
 })
+const MainInfo = createStackNavigator({
+  InfoScreen: InfoStackNav,
+  HowToScreen: HowToStackNav,
+  RecycleScreen:RecycleStackNav,
+  UnrecycleScreen:UnrecycleStackNav,
+  OrganicScreen:OrganicStackNav,
+  OtherScreen:OtherStackNav
+},{
+  initialRouteName:"InfoScreen",
+  defaultNavigationOptions:{
+    header:null
+  },
+  navigationOptions:{
+    drawerLabel:'Info',
+    drawerIcon:({tintColor})=>(
+      <AntDesignIcon name="infocirlce" size={5} style={{fontSize:24, color:tintColor}}/>
+    )
+  }
+})
 
 const CustomDrawerComponent = (props)=>{
   return(
     <SafeAreaView style={{flex:1}}>
       <View style={{backgroundColor:'#fff',alignItems:'center', justifyContent:'center',marginBottom:10}}>
-        <MaterialIcon name='account-box' size={50} color={'#e91e63'}/>
+        <MaterialIcon name='account-box' size={50} color={'#2196f3'}/>
       </View>
       <View style={{backgroundColor:'#fff'},{flexDirection:'row'}}>
         <AntDesignIcon name="logout" size={15} color="#fff" style={{marginLeft:20, paddingTop:3}}/>
@@ -219,11 +340,13 @@ const CustomDrawerComponent = (props)=>{
 }
 
 const DrawerNav = createDrawerNavigator({
+  ProfileDrawer: ProfileStackNav,
+  InfoDrawer: MainInfo,
+  MapDrawer: Main,
   CurrentDrawer: CurrentStackNav,
   HistoryDrawer: HistoryStackNav,
-  MapDrawer:Main,
-  ProfileDrawer:ProfileStackNav,
 },{
+  initialRouteName:"CurrentDrawer",
   contentComponent:CustomDrawerComponent,
   drawerWidth:width*0.7,
   drawerBackgroundColor:"#2196f3",
@@ -237,7 +360,7 @@ const DrawerNav = createDrawerNavigator({
 });
 
 const Switch = createSwitchNavigator({
-  //Auth: Auth,
+  Auth: Auth,
   MainFlow: DrawerNav
 });
 
