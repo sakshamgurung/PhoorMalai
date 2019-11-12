@@ -88,7 +88,6 @@ const readyData = (monthId) => {
 }
 
 const onSuccess = (dispatch, data, monthId) => {
-  console.log(data);
   processData(data);
   processGraphData();
   readyData(monthId);

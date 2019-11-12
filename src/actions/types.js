@@ -31,3 +31,5 @@ export const COLLECTOR_EMAIL_NOT_FOUND = 'collector_email_not_found';
 
 export const PROFILE_LOADED = 'profile_loaded';
 export const PROFILE_FAIL = 'profile_fail';
+
+export const CURRENT_GRAPH_DATA_RElOADED = 'current_graph_data_reloaded';

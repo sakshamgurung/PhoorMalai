@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import {
   CURRENT_GRAPH_DATA_LOADED,
-  CURRENT_GRAPH_DATA_NOT_LOADED
+  CURRENT_GRAPH_DATA_NOT_LOADED,
+  CURRENT_GRAPH_DATA_RElOADED
 } from './types';
 import axios from 'axios';
 
@@ -36,6 +37,12 @@ export const currentDataLoading = (monthId) => {
     }
   }
 }
+export const currentDataReloading = (nextProps) => {
+  return ({
+    type: CURRENT_GRAPH_DATA_RElOADED,
+    payload: nextProps
+  })
+}
 
 const sliceAndConvertMonth = (wasteData) => {
   s = wasteData.date.slice(5,7);
@@ -46,14 +53,12 @@ const sliceAndConvertMonth = (wasteData) => {
   }
 }
 const counterMonth = (wasteData) => {
-  if(wasteData.quantity_in_kg != 0){
     switch(wasteData.waste_type){
       case 'organic': organicByMonth[i-1] += wasteData.quantity_in_kg; break;
       case 'recycle': recycleByMonth[i-1] += wasteData.quantity_in_kg; break;
       case 'unrecycle': unrecycleByMonth[i-1] += wasteData.quantity_in_kg; break;
       case 'other': otherByMonth[i-1] += wasteData.quantity_in_kg; break;
     }
-  }
 }
 const processData = (data) => {
   data.map(wasteData =>{
@@ -88,7 +93,6 @@ const readyData = (monthId) => {
 }
 
 const onSuccess = (dispatch, data, monthId) => {
-  console.log(data);
   processData(data);
   processGraphData();
   readyData(monthId);

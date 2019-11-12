@@ -1,18 +1,31 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, ScrollView} from 'react-native'
 import {connect} from 'react-redux'
-import {currentDataLoading} from '../actions';
+import {currentDataLoading, currentDataReloading} from '../actions';
 import Month from '../components/Month';
 
 class Current extends Component {
   componentDidMount(){
     this.props.currentDataLoading(-1);
   }
+  componentWillReceiveProps(nextProps){
+    this.props.currentDataReloading(nextProps);
+  }
+
   monthSelected = (monthId)=>{
     this.props.currentDataLoading(monthId);
   }
   
+  // assignPropsToConst = ({recycle, unrecycle, organic, other, selected}) => {
+  //   recycle = recycle;
+  //   unrecycle = unrecycle;
+  //   organic = organic;
+  //   other = other;
+  //   selected = selected;
+  // }
+  
   render() {
+    const {recycle, unrecycle, organic, other, selected} = this.props;
     return (
       <View style={{flex:1, backgroundColor:"#2196f3"}}>
         <Text style={{color:"#ffffff", textAlign:"center", fontSize:25, fontWeight:"100",marginTop:30}}> 
@@ -41,22 +54,22 @@ class Current extends Component {
          </ScrollView>
         </View>
         <ScrollView style={{}}>
-          <View><Text style={styles.selectedStyle}>{this.props.selected}</Text></View>
+          <View><Text style={styles.selectedStyle}>{selected}</Text></View>
           <View style={styles.cardStyles}>
             <Text style={styles.cardTextStyles}>Recycle</Text>
-            <Text style={styles.cardQuantityStyles}>{this.props.recycle}</Text>
+            <Text style={styles.cardQuantityStyles}>{recycle}</Text>
           </View>
           <View style={styles.cardStyles}>
             <Text style={styles.cardTextStyles}>Unrecycle</Text>
-            <Text style={styles.cardQuantityStyles}>{this.props.unrecycle}</Text>
+            <Text style={styles.cardQuantityStyles}>{unrecycle}</Text>
           </View>
           <View style={styles.cardStyles}>
             <Text style={styles.cardTextStyles}>Organic</Text>
-            <Text style={styles.cardQuantityStyles}>{this.props.organic}</Text>
+            <Text style={styles.cardQuantityStyles}>{organic}</Text>
           </View>
           <View style={styles.cardStyles}>
             <Text style={styles.cardTextStyles}>Other</Text>
-            <Text style={styles.cardQuantityStyles}>{this.props.other}</Text>
+            <Text style={styles.cardQuantityStyles}>{other}</Text>
           </View>
         </ScrollView>
       </View>
@@ -131,5 +144,5 @@ const mapStateToProp = (state) => {
 }
 
 export default connect(mapStateToProp,{
-  currentDataLoading
+  currentDataLoading, currentDataReloading
 })(Current);

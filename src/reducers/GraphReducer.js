@@ -1,6 +1,7 @@
 import {
   CURRENT_GRAPH_DATA_LOADED,
-  CURRENT_GRAPH_DATA_NOT_LOADED
+  CURRENT_GRAPH_DATA_NOT_LOADED,
+  CURRENT_GRAPH_DATA_RElOADED
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -32,6 +33,9 @@ export default (state = INITIAL_STATE, action) => {
         case 12: month = "Dec";break;
       }
       return {...state, organic:o, recycle:r, unrecycle:ur, other:ot, selected:month}
+    case CURRENT_GRAPH_DATA_RElOADED:
+      const {organic, recycle, unrecycle, other, selected} = action.payload;
+      return {...state, organic:organic, recycle:recycle, unrecycle:unrecycle, other:other, selected:selected};
     case CURRENT_GRAPH_DATA_NOT_LOADED:
       return {...state};
     default:

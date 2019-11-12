@@ -32,6 +32,9 @@ export const formSubmitted = ({spot_ref, wasteType, quantity})=> {
         onFail(dispatch);
       }
       let qty = Number(quantity);
+      if(qty < 0 ){
+        onFail(dispatch);
+      }
       let token = await AsyncStorage.getItem('token');
       //let token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQ1YTg3NDY2YjE5ODYyNDYwNjlkYjFhIn0sImlhdCI6MTU3MjU3Nzc4NSwiZXhwIjoxNTcyODM2OTg1fQ.S4VreC7kcOsPKBTFP_UGCzof27FIUQlPsAlPhoXRsTI';
       //axios.post('http://10.0.2.2:5000/api/spot',{

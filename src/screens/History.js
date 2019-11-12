@@ -13,6 +13,7 @@ class History extends Component {
   }
 
   render() {
+    const {recycle, unrecycle, organic, other, selected} = this.props;
     return (
       <View
       style={{flex:1, backgroundColor:"#2196f3"}}>
@@ -42,22 +43,22 @@ class History extends Component {
          </ScrollView>
         </View>
         <ScrollView style={{}}>
-          <View><Text style={styles.selectedStyle}>{this.props.selected}</Text></View>
+          <View><Text style={styles.selectedStyle}>{selected}</Text></View>
           <View style={styles.cardStyles}>
             <Text style={styles.cardTextStyles}>Recycle</Text>
-            <Text style={styles.cardQuantityStyles}>{this.props.recycle}</Text>
+            <Text style={styles.cardQuantityStyles}>{recycle}</Text>
           </View>
           <View style={styles.cardStyles}>
             <Text style={styles.cardTextStyles}>Unrecycle</Text>
-            <Text style={styles.cardQuantityStyles}>{this.props.unrecycle}</Text>
+            <Text style={styles.cardQuantityStyles}>{unrecycle}</Text>
           </View>
           <View style={styles.cardStyles}>
             <Text style={styles.cardTextStyles}>Organic</Text>
-            <Text style={styles.cardQuantityStyles}>{this.props.organic}</Text>
+            <Text style={styles.cardQuantityStyles}>{organic}</Text>
           </View>
           <View style={styles.cardStyles}>
             <Text style={styles.cardTextStyles}>Other</Text>
-            <Text style={styles.cardQuantityStyles}>{this.props.other}</Text>
+            <Text style={styles.cardQuantityStyles}>{other}</Text>
           </View>
         </ScrollView>
       </View>
