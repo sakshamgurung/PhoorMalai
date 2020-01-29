@@ -32,6 +32,8 @@ target 'PhoorMalai' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'react-native-config', :path => '../node_modules/react-native-config'
+
   target 'PhoorMalaiTests' do
     inherit! :search_paths
     # Pods for testing

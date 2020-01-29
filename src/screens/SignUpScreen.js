@@ -6,6 +6,7 @@ import CardSection from '../components/CardSection';
 import Input from '../components/Input';
 import NewButton from '../components/NewButton';
 import LoaderBtn from '../components/LoaderBtn';
+import Config from 'react-native-config';
 
 class SignUpScreen extends Component{
     state={
@@ -42,8 +43,7 @@ class SignUpScreen extends Component{
         try{
             const body = JSON.stringify(newUser);
             const config = {headers:{'Content-Type':'application/json'}};
-            //axios.post('http://10.0.2.2:5000/api/user',body,config)
-            axios.post('http://192.168.3.13:5000/api/user',body,config)
+            axios.post(Config.USER_API_DEVICE,body,config)
             .then(res =>{this.onSuccess(res.data.token);})
             .catch(err => this.onFail(err));
             

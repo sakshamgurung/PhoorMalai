@@ -7,6 +7,8 @@ import{
   FORM_NOT_SUBMITTED
 } from './types';
 import axios from 'axios';
+import Config from 'react-native-config';
+
 export const quantityChanged = (text)=> {
   return({
     type:QUANTITY_CHANGED,
@@ -36,9 +38,8 @@ export const formSubmitted = ({spot_ref, wasteType, quantity})=> {
         onFail(dispatch);
       }
       let token = await AsyncStorage.getItem('token');
-      //let token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQ1YTg3NDY2YjE5ODYyNDYwNjlkYjFhIn0sImlhdCI6MTU3MjU3Nzc4NSwiZXhwIjoxNTcyODM2OTg1fQ.S4VreC7kcOsPKBTFP_UGCzof27FIUQlPsAlPhoXRsTI';
-      //axios.post('http://10.0.2.2:5000/api/spot',{
-      axios.post('http://192.168.3.13:5000/api/spot',{
+      //let token = Config.TOKEN;
+      axios.post(Config.SPOT_POST_API_DEVICE,{
         spot_list_ref: spot_ref,
         waste_type: wasteType,
         quantity_in_kg: qty,

@@ -4,6 +4,7 @@ import {
   HISTORY_GRAPH_DATA_NOT_LOADED
 } from './types';
 import axios from 'axios';
+import Config from 'react-native-config';
 
 let organic = [];
 let recycle = [];
@@ -25,9 +26,8 @@ export const historyDataLoading = (monthId) => {
   return async(dispatch) => {
     try {
       let token = await AsyncStorage.getItem('token');
-      //let token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQ1YTg3NDY2YjE5ODYyNDYwNjlkYjFhIn0sImlhdCI6MTU3MjU3Nzc4NSwiZXhwIjoxNTcyODM2OTg1fQ.S4VreC7kcOsPKBTFP_UGCzof27FIUQlPsAlPhoXRsTI'
-      //axios.get('http://10.0.2.2:5000/api/spot/history',{headers:{'x-auth-token':token}})
-      axios.get('http://192.168.3.13:5000/api/spot/history',{headers:{'x-auth-token':token}})
+      //let token = Config.TOKEN;
+      axios.get(Config.HISTORY_DATA_API_DEVICE,{headers:{'x-auth-token':token}})
       .then((res)=> onSuccess(dispatch,res.data,monthId))
       .catch(()=> onFail(dispatch));
     } catch (error) {

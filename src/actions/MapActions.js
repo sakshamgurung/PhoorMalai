@@ -4,6 +4,7 @@ import {
   SUCCESS_ON_GETTING_DUMP_LOC,
   FAIL_ON_GETTING_DUMP_LOC
 } from './types';
+import Config from 'react-native-config';
 
 export const getUserLocation = ({lon,lat})=>{
   return{
@@ -12,12 +13,10 @@ export const getUserLocation = ({lon,lat})=>{
   }
 }
 
-
 export const getSpotLocation = ({lon,lat})=>{
   return (dispatch) => {
     try {
-      //axios.post('http://10.0.2.2:5000/api/spot_list/near_spot_list', {
-      axios.post('http://192.168.3.13:5000/api/spot_list/near_spot_list', {
+      axios.post(Config.NEAR_SPOT_LIST_API_DEVICE, {
         lon: lon, 
         lat: lat
       }, {
