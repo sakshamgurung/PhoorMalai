@@ -15,10 +15,10 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch(action.type){
     case CURRENT_GRAPH_DATA_LOADED:
-      const {o, r, ur, ot, monthId} = action.payload
+      const {organicPayload, recyclePayload, unrecyclePayload, otherPayload, monthId} = action.payload
       let month = null;
       switch(monthId){
-        case -1: month = "All";break;
+        case 0: month = "All";break;
         case 1: month = "Jan";break;
         case 2: month = "Feb";break;
         case 3: month = "Mar";break;
@@ -32,7 +32,7 @@ export default (state = INITIAL_STATE, action) => {
         case 11: month = "Nov";break;
         case 12: month = "Dec";break;
       }
-      return {...state, organic:o, recycle:r, unrecycle:ur, other:ot, selected:month}
+      return {...state, organic:organicPayload,recycle:recyclePayload,unrecycle:unrecyclePayload, other:otherPayload, selected:month}
     case CURRENT_GRAPH_DATA_RElOADED:
       const {organic, recycle, unrecycle, other, selected} = action.payload;
       return {...state, organic:organic, recycle:recycle, unrecycle:unrecycle, other:other, selected:selected};

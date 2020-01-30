@@ -34,10 +34,10 @@ import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
 useScreens();
 const {width} = Dimensions.get('window');
+//Welcome: WelcomeScreen,
 const Auth = createStackNavigator({
-  Welcome: WelcomeScreen,
-  SignUp: SignUpScreen,
-  Login: LoginScreen
+  Login: LoginScreen,
+  SignUp: SignUpScreen
 },{
   defaultNavigationOptions:{
     header:null
