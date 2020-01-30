@@ -1,30 +1,32 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import {
-  CURRENT_GRAPH_DATA_LOADED,
-  CURRENT_GRAPH_DATA_NOT_LOADED,
-  CURRENT_GRAPH_DATA_RElOADED
+  CURRENT_DATA_LOADED,
+  CURRENT_DATA_NOT_LOADED,
+  CURRENT_DATA_RElOADED
 } from './types';
 import axios from 'axios';
 import Config from 'react-native-config';
+import {JWT_TOKEN} from 'react-native-dotenv';
 
-let organicByMonth;
-let recycleByMonth;
-let unrecycleByMonth;
-let otherByMonth;
-let currentData = {};
+let organicByMonth = [0,0,0,0,0,0,0,0,0,0,0,0,0];
+let recycleByMonth = [0,0,0,0,0,0,0,0,0,0,0,0,0];
+let unrecycleByMonth = [0,0,0,0,0,0,0,0,0,0,0,0,0];
+let otherByMonth = [0,0,0,0,0,0,0,0,0,0,0,0,0];
+let currentData = {
+  organicPayload:0,
+  recyclePayload:0,
+  unrecyclePayload:0,
+  otherPayload:0,
+  monthId:0
+};
 let slice = '';
 let i = 0;
-
 
 export const currentDataLoading = (monthId) => {
   return async(dispatch) => {
     try {
-      organicByMonth = [0,0,0,0,0,0,0,0,0,0,0,0,0];
-      recycleByMonth = [0,0,0,0,0,0,0,0,0,0,0,0,0];
-      unrecycleByMonth = [0,0,0,0,0,0,0,0,0,0,0,0,0];
-      otherByMonth = [0,0,0,0,0,0,0,0,0,0,0,0,0];
-      let token = await AsyncStorage.getItem('token');
-      //let token = Config.TOKEN;
+      //let token = await AsyncStorage.getItem('token');
+      let token = JWT_TOKEN;
       axios.get(Config.CURRENT_DATA_API_DEVICE,{headers:{'x-auth-token':token}})
       .then((res)=> onSuccess(dispatch,res.data,monthId))
       .catch(()=> onFail(dispatch));
@@ -35,7 +37,7 @@ export const currentDataLoading = (monthId) => {
 }
 export const currentDataReloading = (nextProps) => {
   return ({
-    type: CURRENT_GRAPH_DATA_RElOADED,
+    type: CURRENT_DATA_RElOADED,
     payload: nextProps
   })
 }
@@ -50,7 +52,7 @@ const sliceAndConvertMonth = (wasteData) => {
 }
 const counterMonth = (wasteData) => {
     switch(wasteData.waste_type){
-      case 'organic': 
+      case 'organic':
         organicByMonth[i] += wasteData.quantity_in_kg;
         organicByMonth[0] += wasteData.quantity_in_kg;
         break;
@@ -67,13 +69,32 @@ const counterMonth = (wasteData) => {
         otherByMonth[0] += wasteData.quantity_in_kg;
         break;
     }
-}
-
-const processData = (data) => {
-  data.map(wasteData =>{
-    sliceAndConvertMonth(wasteData);
-    counterMonth(wasteData);
-  });
+  }
+  
+  const processData = (data) => {
+    //resetting values for waste data array
+    organicByMonth.forEach(function(item, index, arr){
+      this[index] = 0;
+    },organicByMonth);
+    recycleByMonth.forEach(function(item, index, arr){
+      this[index] = 0;
+    },recycleByMonth);
+    unrecycleByMonth.forEach(function(item, index, arr){
+      this[index] = 0;
+    },unrecycleByMonth);
+    otherByMonth.forEach(function(item, index, arr){
+      this[index] = 0;
+    },otherByMonth);
+    //resetting values for waste data object
+    currentData.organicPayload = 0;
+    currentData.recyclePayload = 0;
+    currentData.unrecyclePayload = 0;
+    currentData.otherPayload = 0;
+    currentData.monthId = 0;
+    data.map(wasteData =>{
+      sliceAndConvertMonth(wasteData);
+      counterMonth(wasteData);
+    });
 }
 
 const filterData = (monthId) => {
@@ -85,17 +106,18 @@ const filterData = (monthId) => {
 }
 
 const onSuccess = (dispatch, data, monthId) => {
-  console.log(data);
+  //console.log('Raw data: ',data);
   processData(data);
   filterData(monthId);
-  console.log("Current Data is ",currentData);
+  //console.log('Payload:',currentData);
   dispatch({
-    type: CURRENT_GRAPH_DATA_LOADED,
+    type: CURRENT_DATA_LOADED,
     payload: currentData
   })
 }
 const onFail = (dispatch) => {
+  console.log("graph action fails");
   dispatch({
-    type: CURRENT_GRAPH_DATA_NOT_LOADED
+    type: CURRENT_DATA_NOT_LOADED
   })
 }

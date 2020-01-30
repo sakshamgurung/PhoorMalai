@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
 import AuthReducer from './AuthReducer';
 import MapReducer from './MapReducer';
-import GraphReducer from './GraphReducer';
-import HistoryGraphReducer from './HistoryGraphReducer';
+import CurrentReducer from './CurrentReducer';
+import HistoryReducer from './HistoryReducer';
 import FormReducer  from './FormReducer';
 import CollectorReducer from './CollectorReducer';
 import MainFormReducer from './MainFormReducer';
@@ -11,8 +11,8 @@ export default combineReducers({
   auth: AuthReducer,
   profile: ProfileReducer,
   map: MapReducer,
-  graph: GraphReducer,
-  historyGraph: HistoryGraphReducer,
+  current: CurrentReducer,
+  history: HistoryReducer,
   form: FormReducer,
   collector: CollectorReducer,
   mainForm: MainFormReducer

@@ -26,6 +26,7 @@ import OrganicInfo from './screens/OrganicInfo';
 import Other from './screens/Other';
 
 import MenuButton from '../src/components/MenuButton';
+import BackToMapButton from '../src/components/BackToMapButton';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
@@ -34,8 +35,8 @@ import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
 useScreens();
 const {width} = Dimensions.get('window');
-//Welcome: WelcomeScreen,
 const Auth = createStackNavigator({
+  //Welcome: WelcomeScreen,
   Login: LoginScreen,
   SignUp: SignUpScreen
 },{
@@ -88,18 +89,7 @@ const MapStackNav= createStackNavigator({
 
 const HistoryStackNav= createStackNavigator({
   History:{
-    screen:History,
-    navigationOptions:({navigation})=>({
-      headerTransparent:{
-        position:'absolute',
-        backgroundColor: 'transparent',
-        zIndex:100,
-        top:0,
-        left:0,
-        right:0
-      },
-      headerLeft:<MenuButton navigationProps={navigation} />
-    })
+    screen:History
   }
 },{
   navigationOptions:{
@@ -112,18 +102,7 @@ const HistoryStackNav= createStackNavigator({
 
 const CurrentStackNav= createStackNavigator({
   Current:{
-    screen:Current,
-    navigationOptions:({navigation})=>({
-      headerTransparent:{
-        position:'absolute',
-        backgroundColor: 'transparent',
-        zIndex:100,
-        top:0,
-        left:0,
-        right:0
-      },
-      headerLeft:<MenuButton navigationProps={navigation} />
-    })
+    screen:Current
   }
 },{
   navigationOptions:{
@@ -360,7 +339,7 @@ const DrawerNav = createDrawerNavigator({
 });
 
 const Switch = createSwitchNavigator({
-  Auth: Auth,
+  // Auth: Auth,
   MainFlow: DrawerNav
 });
 

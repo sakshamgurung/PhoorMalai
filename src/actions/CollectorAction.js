@@ -7,6 +7,7 @@ import {
 } from './types';
 import axios from 'axios';
 import Config from 'react-native-config';
+import {JWT_TOKEN} from 'react-native-dotenv';
 
 let organic = null;
 let recycle = null;
@@ -20,8 +21,8 @@ export const showLocationWasteData = ({spot_ref,collector_email}) => {
       recycle = 0;
       unrecycle = 0;
       other = 0;
-      let token = await AsyncStorage.getItem('token');
-      //let token = Config.TOKEN;
+      //let token = await AsyncStorage.getItem('token');
+      let token = JWT_TOKEN;
       axios.post(Config.COLLECTOR_SHOW_API_DEVICE,{
           spot_list_ref: spot_ref,
           collector_email: collector_email
@@ -41,10 +42,9 @@ export const showLocationWasteData = ({spot_ref,collector_email}) => {
 export const collectWaste = (spot_ref) =>{
   return async(dispatch) => {
     try {
-      let token = await AsyncStorage.getItem('token');
-      //let token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQ4MmYzZmM1YzZmODMwODVjMmU4N2ZhIn0sImlhdCI6MTU2OTIxMjI0NCwiZXhwIjoxNTY5NDcxNDQ0fQ.xk7-Yezdpg49PB6eSNUTumab4Tak3Q8H-W_vnu9pMiE'
-      //axios.post('http://10.0.2.2:5000/api/spot/clear',{
-      axios.post('http://192.168.3.13:5000/api/spot/clear',{
+      //let token = await AsyncStorage.getItem('token');
+      let token = JWT_TOKEN;
+      axios.post(Config.COLLECTOR_CLEAR_API_DEVICE,{
         spot_list_ref:spot_ref,
         history_flag:true
       },{

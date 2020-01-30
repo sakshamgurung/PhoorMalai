@@ -1,29 +1,44 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, ScrollView, Alert} from 'react-native'
+import { Text, StyleSheet, View, ScrollView} from 'react-native'
 import {connect} from 'react-redux'
 import {currentDataLoading, currentDataReloading} from '../actions';
 import Month from '../components/Month';
-import {NavigationEvents} from 'react-navigation';
-
+import BackToMapButton from '../components/BackToMapButton';
 
 class Current extends Component {
-
+  static navigationOptions =({navigation}) => {
+    return{
+      headerTitle:'Current',
+      headerStyle:{backgroundColor:'#4076bd'},
+      headerTintColor:'#fff',
+      headerTitleStyle:{
+        fontSize:25
+      },
+      headerLeft:() => (
+        <BackToMapButton navigationProps={navigation} />
+      )
+    }
+  };
   componentDidMount(){
-    console.log('mounted');
     this.props.currentDataLoading(0);
     this.createDataSource(this.props);
+    this.willFocusSubscription = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.props.currentDataLoading(0);
+        this.createDataSource(this.props);
+      }
+    );
   }
   componentWillReceiveProps(nextProps){
-    console.log('receive props');
     this.createDataSource(nextProps);
   }
   componentWillUnmount(){
-    console.log('unmounted');
+    this.willFocusSubscription.remove();
   }
   monthSelected = (monthId)=>{
     this.props.currentDataLoading(monthId);
   }
-  
   createDataSource({recycle, unrecycle, organic, other, selected}){
     this.organic = organic;
     this.recycle = recycle;
@@ -32,15 +47,8 @@ class Current extends Component {
     this.selected = selected;
   }
   render() {
-    //const {recycle, unrecycle, organic, other, selected} = this.props;
     return (
       <View style={{flex:1, backgroundColor:"#2196f3"}}>
-        {/* <NavigationEvents onDidFocus={()=>{
-          this.componentDidMount();
-        }}/> */}
-        <Text style={{color:"#ffffff", textAlign:"center", fontSize:25, fontWeight:"100",marginTop:30}}> 
-        Current 
-        </Text>
         <View style={styles.scrollViewParent}>
           <ScrollView 
           horizontal={true}
@@ -89,13 +97,19 @@ class Current extends Component {
 
 const styles = StyleSheet.create({
   scrollViewParent:{
-    borderTopWidth:0.5, 
-    borderBottomWidth:0.5, 
-    borderTopColor:"#fff", 
-    borderBottomColor:"#fff",
-    padding:10,
-    marginTop:10,
-    marginBottom:10
+    borderRadius:10,
+    backgroundColor:'#64b5f6',
+    opacity:0.9,
+    padding:5,
+    marginLeft:5,
+    marginRight:5,
+    marginTop:15,
+    marginBottom:10,
+    shadowColor:'#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    shadowOffset:{width:0, height:5},
+    elevation: 5,
   },
   selectedStyle:{
     color:"#ffffff", 
@@ -118,8 +132,8 @@ const styles = StyleSheet.create({
     elevation: 5,
     marginBottom:12,
     marginTop:12,
-    marginLeft:12,
-    marginRight:12
+    marginLeft:5,
+    marginRight:5
   },
   cardTextStyles:{
     color:"#fff",
@@ -143,7 +157,7 @@ const mapStateToProp = (state) => {
     unrecycle,
     other,
     selected
-  } = state.graph;
+  } = state.current;
   return{
     organic,
     recycle,

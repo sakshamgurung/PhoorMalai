@@ -7,6 +7,7 @@ import{
 } from './types';
 import axios from 'axios';
 import Config from 'react-native-config';
+import {JWT_TOKEN} from 'react-native-dotenv';
 
 export const displayCollectorDialog = (flag)=> {
   return({
@@ -24,8 +25,8 @@ export const collectorEmailChanged = (text)=> {
 export const checkEmail = (collector_email, navigation, spot_ref, spot_street, spot_city, spot_district) => {
   return async(dispatch) => {
     try {
-      let token = await AsyncStorage.getItem('token');
-      //let token = Config.TOKEN;
+      //let token = await AsyncStorage.getItem('token');
+      let token = JWT_TOKEN;
       axios.post(Config.GET_COLLECTOR_API_DEVICE,{
           collector_email:collector_email
         }, {

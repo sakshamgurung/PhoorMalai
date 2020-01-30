@@ -3,23 +3,51 @@ import { Text, StyleSheet, View, ScrollView} from 'react-native'
 import {connect} from 'react-redux'
 import {historyDataLoading} from '../actions';
 import Month from '../components/Month';
+import BackToMapButton from '../components/BackToMapButton';
 class History extends Component {
-
+  static navigationOptions =({navigation}) => {
+    return{
+      headerTitle:'History',
+      headerStyle:{backgroundColor:'#4076bd'},
+      headerTintColor:'#fff',
+      headerTitleStyle:{
+        fontSize:25
+      },
+      headerLeft:() => (
+        <BackToMapButton navigationProps={navigation} />
+      )
+    }
+  };
   componentDidMount(){
-    this.props.historyDataLoading(-1);
+    this.props.historyDataLoading(0);
+    this.createDataSource(this.props);
+    this.willFocusSubscription = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.props.historyDataLoading(0);
+        this.createDataSource(this.props);
+      }
+    );
+  }
+  componentWillReceiveProps(nextProps){
+    this.createDataSource(nextProps);
+  }
+  componentWillUnmount(){
+    this.willFocusSubscription.remove();
   }
   monthSelected = (monthId)=>{
     this.props.historyDataLoading(monthId);
   }
-
+  createDataSource({recycle, unrecycle, organic, other, selected}){
+    this.organic = organic;
+    this.recycle = recycle;
+    this.unrecycle = unrecycle;
+    this.other = other;
+    this.selected = selected;
+  }
   render() {
-    const {recycle, unrecycle, organic, other, selected} = this.props;
     return (
-      <View
-      style={{flex:1, backgroundColor:"#2196f3"}}>
-        <Text style={{color:"#ffffff", textAlign:"center", fontSize:25, fontWeight:"100",marginTop:30}}> 
-        History 
-        </Text>
+      <View style={{flex:1, backgroundColor:"#2196f3"}}>
         <View style={styles.scrollViewParent}>
           <ScrollView 
           horizontal={true}
@@ -27,7 +55,7 @@ class History extends Component {
           scrollEventThrottle={15}
           style={styles.scrollViewStyles}
           >
-            <Month month="All" onPress={() => this.monthSelected(-1)}/>
+            <Month month="All" onPress={() => this.monthSelected(0)}/>
             <Month month="Jan" onPress={() => this.monthSelected(1)}/>
             <Month month="Feb" onPress={() => this.monthSelected(2)}/>
             <Month month="Mar" onPress={() => this.monthSelected(3)}/>
@@ -43,22 +71,22 @@ class History extends Component {
          </ScrollView>
         </View>
         <ScrollView style={{}}>
-          <View><Text style={styles.selectedStyle}>{selected}</Text></View>
+          <View><Text style={styles.selectedStyle}>{this.selected}</Text></View>
           <View style={styles.cardStyles}>
             <Text style={styles.cardTextStyles}>Recycle</Text>
-            <Text style={styles.cardQuantityStyles}>{recycle}</Text>
+            <Text style={styles.cardQuantityStyles}>{this.recycle}</Text>
           </View>
           <View style={styles.cardStyles}>
             <Text style={styles.cardTextStyles}>Unrecycle</Text>
-            <Text style={styles.cardQuantityStyles}>{unrecycle}</Text>
+            <Text style={styles.cardQuantityStyles}>{this.unrecycle}</Text>
           </View>
           <View style={styles.cardStyles}>
             <Text style={styles.cardTextStyles}>Organic</Text>
-            <Text style={styles.cardQuantityStyles}>{organic}</Text>
+            <Text style={styles.cardQuantityStyles}>{this.organic}</Text>
           </View>
           <View style={styles.cardStyles}>
             <Text style={styles.cardTextStyles}>Other</Text>
-            <Text style={styles.cardQuantityStyles}>{other}</Text>
+            <Text style={styles.cardQuantityStyles}>{this.other}</Text>
           </View>
         </ScrollView>
       </View>
@@ -68,13 +96,19 @@ class History extends Component {
 
 const styles = StyleSheet.create({
   scrollViewParent:{
-    borderTopWidth:0.5, 
-    borderBottomWidth:0.5, 
-    borderTopColor:"#fff", 
-    borderBottomColor:"#fff",
-    padding:10,
-    marginTop:10,
-    marginBottom:10
+    borderRadius:10,
+    backgroundColor:'#64b5f6',
+    opacity:0.9,
+    padding:5,
+    marginLeft:5,
+    marginRight:5,
+    marginTop:15,
+    marginBottom:10,
+    shadowColor:'#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    shadowOffset:{width:0, height:5},
+    elevation: 5,
   },
   selectedStyle:{
     color:"#ffffff", 
@@ -97,8 +131,8 @@ const styles = StyleSheet.create({
     elevation: 5,
     marginBottom:12,
     marginTop:12,
-    marginLeft:12,
-    marginRight:12
+    marginLeft:5,
+    marginRight:5
   },
   cardTextStyles:{
     color:"#fff",
@@ -122,7 +156,7 @@ const mapStateToProp = (state) => {
     unrecycle,
     other,
     selected
-  } = state.historyGraph;
+  } = state.history;
   return{
     organic,
     recycle,

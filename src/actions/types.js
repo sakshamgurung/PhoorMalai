@@ -6,11 +6,11 @@ export const USER_LOCATION_FOUND = 'user_location_found';
 export const SUCCESS_ON_GETTING_DUMP_LOC = 'success_on_getting_dump_loc';
 export const FAIL_ON_GETTING_DUMP_LOC = 'fail_on_getting_dump_loc';
 
-export const CURRENT_GRAPH_DATA_LOADED = 'current_graph_data_loaded';
-export const CURRENT_GRAPH_DATA_NOT_LOADED = 'current_graph_data_not_loaded';
+export const CURRENT_DATA_LOADED = 'current_data_loaded';
+export const CURRENT_DATA_NOT_LOADED = 'current_data_not_loaded';
 
-export const HISTORY_GRAPH_DATA_LOADED = 'history_graph_data_loaded';
-export const HISTORY_GRAPH_DATA_NOT_LOADED = 'history_graph_data_not_loaded';
+export const HISTORY_DATA_LOADED = 'history_data_loaded';
+export const HISTORY_DATA_NOT_LOADED = 'history_data_not_loaded';
 
 export const WASTE_TYPE_SELECTED = 'waste_type_selected';
 export const TOGGLE_PICKER_DISPLAY = 'toggle_picker_display'; 
@@ -32,4 +32,4 @@ export const COLLECTOR_EMAIL_NOT_FOUND = 'collector_email_not_found';
 export const PROFILE_LOADED = 'profile_loaded';
 export const PROFILE_FAIL = 'profile_fail';
 
-export const CURRENT_GRAPH_DATA_RElOADED = 'current_graph_data_reloaded';
+export const CURRENT_DATA_RElOADED = 'current_data_reloaded';
