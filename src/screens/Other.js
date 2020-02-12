@@ -1,13 +1,20 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, ScrollView} from 'react-native'
 import WasteCard from '../components/WasteCard'
+import BackToMainInfoButton from '../components/BackToMainInfoButton';
+
 class OtherInfo extends Component {
+  static navigationOptions =({navigation}) => {
+    return{
+      title: navigation.getParam('title'),
+      headerLeft:() => (
+        <BackToMainInfoButton navigationProps={navigation} />
+      )
+    }
+  };
   render() {
     return (
       <View style={{flex:1, backgroundColor:"#2196f3"}}>
-        <Text style={{color:"#ffffff", textAlign:"center", fontSize:25, fontWeight:"100",marginTop:30}}> 
-        Other items
-        </Text>
         <ScrollView>
           <View style={styles.groupStyles}>
             <WasteCard src={require('../images/ewaste.png')}>

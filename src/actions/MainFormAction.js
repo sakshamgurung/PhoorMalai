@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import{
+  RESET,
   TOGGLE_COLLECTOR_DIALOG,
   COLLECTOR_EMAIL_CHANGED,
   COLLECTOR_EMAIL_EXIST,
@@ -7,7 +8,12 @@ import{
 } from './types';
 import axios from 'axios';
 import Config from 'react-native-config';
-import {JWT_TOKEN} from 'react-native-dotenv';
+
+export const resetCollectorDialog = () => {
+  return({
+    type: RESET
+  });
+}
 
 export const displayCollectorDialog = (flag)=> {
   return({
@@ -25,9 +31,8 @@ export const collectorEmailChanged = (text)=> {
 export const checkEmail = (collector_email, navigation, spot_ref, spot_street, spot_city, spot_district) => {
   return async(dispatch) => {
     try {
-      //let token = await AsyncStorage.getItem('token');
-      let token = JWT_TOKEN;
-      axios.post(Config.GET_COLLECTOR_API_DEVICE,{
+      let token = await AsyncStorage.getItem('token');
+      axios.post(Config.GET_COLLECTOR_API,{
           collector_email:collector_email
         }, {
           headers: {

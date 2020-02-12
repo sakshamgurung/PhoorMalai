@@ -16,7 +16,7 @@ export const getUserLocation = ({lon,lat})=>{
 export const getSpotLocation = ({lon,lat})=>{
   return (dispatch) => {
     try {
-      axios.post(Config.NEAR_SPOT_LIST_API_DEVICE, {
+      axios.post(Config.NEAR_SPOT_LIST_API, {
         lon: lon, 
         lat: lat
       }, {
@@ -36,9 +36,18 @@ export const getSpotLocation = ({lon,lat})=>{
 }
 
 const onSuccessConnection = (dispatch, res)=>{
+  let modifiedData = [];
+  //modifying loc array to loc object to preserve precision while using in MapView.Marker
+  res.data.map(arr => {
+    let loc = {};
+    loc.latitude = arr.loc[1];
+    loc.longitude = arr.loc[0];
+    let newObj = {...arr,loc:loc};
+    modifiedData.push(newObj);
+  })
   dispatch({
     type:SUCCESS_ON_GETTING_DUMP_LOC,
-    payload:{res}
+    payload:{modifiedData}
   });
 }
 const onFailConnection =(dispatch)=>{

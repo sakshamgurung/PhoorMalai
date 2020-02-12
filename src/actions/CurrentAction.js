@@ -6,7 +6,6 @@ import {
 } from './types';
 import axios from 'axios';
 import Config from 'react-native-config';
-import {JWT_TOKEN} from 'react-native-dotenv';
 
 let organicByMonth = [0,0,0,0,0,0,0,0,0,0,0,0,0];
 let recycleByMonth = [0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -25,9 +24,8 @@ let i = 0;
 export const currentDataLoading = (monthId) => {
   return async(dispatch) => {
     try {
-      //let token = await AsyncStorage.getItem('token');
-      let token = JWT_TOKEN;
-      axios.get(Config.CURRENT_DATA_API_DEVICE,{headers:{'x-auth-token':token}})
+      let token = await AsyncStorage.getItem('token');
+      axios.get(Config.CURRENT_DATA_API,{headers:{'x-auth-token':token}})
       .then((res)=> onSuccess(dispatch,res.data,monthId))
       .catch(()=> onFail(dispatch));
     } catch (error) {
@@ -106,10 +104,8 @@ const filterData = (monthId) => {
 }
 
 const onSuccess = (dispatch, data, monthId) => {
-  //console.log('Raw data: ',data);
   processData(data);
   filterData(monthId);
-  //console.log('Payload:',currentData);
   dispatch({
     type: CURRENT_DATA_LOADED,
     payload: currentData

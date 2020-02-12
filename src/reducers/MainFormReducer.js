@@ -1,4 +1,5 @@
 import {
+  RESET,
   TOGGLE_COLLECTOR_DIALOG,
   COLLECTOR_EMAIL_CHANGED,
   COLLECTOR_EMAIL_EXIST,
@@ -20,7 +21,9 @@ export default (state = INITIAL_STATE, action) => {
     case COLLECTOR_EMAIL_EXIST:
       return {...state}
     case COLLECTOR_EMAIL_NOT_FOUND:
-      return {...state, notFoundMessage:action.payload}
+      return {...state, collector_email:'', notFoundMessage:action.payload}
+    case RESET:
+      return {...state, collector_email:'',collectorDialog:false}
     default:
       return state;
   }

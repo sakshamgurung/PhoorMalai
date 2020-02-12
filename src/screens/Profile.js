@@ -4,8 +4,22 @@ import {connect} from 'react-redux';
 import CustomerInputDialog from '../components/CustometInputDialog';
 import {getProfile} from '../actions';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import BackToMapButton from '../components/BackToMapButton';
 
 class Profile extends Component {
+  static navigationOptions =({navigation}) => {
+    return{
+      headerTitle:'Profile',
+      headerStyle:{backgroundColor:'#4076bd'},
+      headerTintColor:'#fff',
+      headerTitleStyle:{
+        fontSize:25
+      },
+      headerLeft:() => (
+        <BackToMapButton navigationProps={navigation} />
+      )
+    }
+  };
   render() {
     this.props.getProfile();
     return (

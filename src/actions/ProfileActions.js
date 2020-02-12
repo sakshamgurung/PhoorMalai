@@ -5,14 +5,12 @@ import {
 } from './types';
 import axios from 'axios';
 import Config from 'react-native-config';
-import {JWT_TOKEN} from 'react-native-dotenv';
 
 export const getProfile = () => {
   return async(dispatch) => {
     try {
-      //let token = await AsyncStorage.getItem('token');
-      let token = JWT_TOKEN;
-      axios.get(Config.PROFILE_API_DEVICE,{headers:{'x-auth-token':token}})
+      let token = await AsyncStorage.getItem('token');
+      axios.get(Config.PROFILE_API,{headers:{'x-auth-token':token}})
       .then((res)=> {console.log(res);onSuccess(dispatch,res.data)})
       .catch(()=> onFail(dispatch));
     } catch (error) {

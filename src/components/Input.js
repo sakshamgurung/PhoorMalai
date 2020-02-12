@@ -7,7 +7,8 @@ const Input = ({placeholder,label,value,onChangeText,secureTextEntry,onSubmitEdi
     return(
        <View style={styles.viewStyle}>
          {/* <Text style={labelStyles}>{label}</Text> */}
-         <TextInput 
+         <TextInput
+         clearButtonMode="always"
          onSubmitEditing={onSubmitEditing} 
          secureTextEntry={secureTextEntry} 
          placeholder={placeholder} 

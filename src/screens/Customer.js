@@ -5,9 +5,21 @@ import {quantityChanged, formSubmitted, wasteTypeSelected,togglePickerDisplay} f
 import CollectorButton from '../components/CollectorButton';
 import CustomerInputDialog from '../components/CustometInputDialog';
 import CustomerSubmitBtn from '../components/CustomerSubmitBtn';
-
+import BackToMainFormButton from '../components/BackToMainFormButton';
 class Customer extends Component{
-  
+  static navigationOptions =({navigation}) => {
+    return{
+      headerTitle:'As customer',
+      headerStyle:{backgroundColor:'#4076bd'},
+      headerTintColor:'#fff',
+      headerTitleStyle:{
+        fontSize:25
+      },
+      headerLeft:() => (
+        <BackToMainFormButton navigationProps={navigation} />
+      )
+    }
+  };
   setPickerValue = (pickedValue)=>{
       this.props.wasteTypeSelected(pickedValue);
     } 

@@ -2,9 +2,15 @@
 // import {NavigationActions} from 'react-navigation';
 import {
   EMAIL_CHANGED,
-  PASSWORD_CHANGED
+  PASSWORD_CHANGED,
+  RESET
 } from './types';
 
+export const resetState = () => {
+  return({
+    type: RESET
+  });
+}
 export const emailChanged = (text) => {
   return({
     type: EMAIL_CHANGED,

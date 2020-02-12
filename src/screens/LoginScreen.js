@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {View,Text,StyleSheet,ImageBackground,PermissionsAndroid,Platform} from 'react-native';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {emailChanged, passwordChanged} from '../actions';
+import {emailChanged, passwordChanged, resetState} from '../actions';
 import Input from '../components/Input';
 import NewButton from '../components/NewButton';
 import Card from '../components/Card';
@@ -12,7 +12,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Config from 'react-native-config';
 
 class LoginScreen extends Component{
-    
+    componentWillUnmount(){
+        this.props.resetState();
+    }
     state = {
         errorLogin:'',
         loadingLogin:false,
@@ -48,7 +50,7 @@ class LoginScreen extends Component{
         try{
             const body = JSON.stringify(user);
             const config = {headers:{'Content-Type':'application/json'}};
-            axios.post(Config.AUTH_API_DEVICE,body,config)
+            axios.post(Config.AUTH_API,body,config)
             .then((res) => this.onSuccessSignIn(res))
             .catch(() => {this.onFailSignIn()});
             
@@ -74,14 +76,14 @@ class LoginScreen extends Component{
                  <View style={{width:'80%',borderRadius:10.7,height:'90%'}}>
                       <Card>
                         <CardSection>
-                            <Input 
+                            <Input
                             onChangeText={this.onEmailChanged.bind(this)} 
                             value={this.props.email} 
                             secureTextEntry={false}
                             placeholder="Email" />
                         </CardSection>
                         <CardSection>
-                             <Input 
+                             <Input
                              onChangeText={this.onPasswordChanged.bind(this)}  
                              value={this.props.password} 
                              secureTextEntry={true} 
@@ -149,5 +151,6 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
     emailChanged,
-    passwordChanged
+    passwordChanged,
+    resetState
 })(LoginScreen);

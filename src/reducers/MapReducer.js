@@ -19,8 +19,8 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, lon, lat}
 
     case SUCCESS_ON_GETTING_DUMP_LOC:
-      const {data} = action.payload.res;
-      return {...state, loadSpotMarker:true,dumpSiteLocation:data}
+      const {modifiedData} = action.payload;
+      return {...state, loadSpotMarker:true, dumpSiteLocation:modifiedData}
     
     case FAIL_ON_GETTING_DUMP_LOC:
       return {...state};

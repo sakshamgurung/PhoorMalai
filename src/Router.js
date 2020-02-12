@@ -48,18 +48,7 @@ const Auth = createStackNavigator({
 
 const ProfileStackNav= createStackNavigator({
   Profile:{
-    screen:Profile,
-    navigationOptions:({navigation})=>({
-        headerTransparent:{
-            position:'absolute',
-            backgroundColor: 'transparent',
-            zIndex:100,
-            top:0,
-            left:0,
-            right:0
-        },
-        headerLeft:<MenuButton navigationProps={navigation} />
-    })
+    screen:Profile
   }
 },{
   navigationOptions:{
@@ -114,147 +103,18 @@ const CurrentStackNav= createStackNavigator({
 })
 const CustomerStackNav= createStackNavigator({
   Customer:{
-    screen:Customer,
-    navigationOptions:({navigation})=>({
-        headerTransparent:{
-          position:'absolute',
-          backgroundColor: 'transparent',
-          zIndex:100,
-          top:0,
-          left:0,
-          right:0
-      },
-      headerLeft:<MenuButton navigationProps={navigation} />
-    })
+    screen:Customer
   }
 })
 const CollectorStackNav= createStackNavigator({
   Collector:{
-    screen:Collector,
-    navigationOptions:({navigation})=>({
-        headerTransparent:{
-          position:'absolute',
-          backgroundColor: 'transparent',
-          zIndex:100,
-          top:0,
-          left:0,
-          right:0
-      },
-      headerLeft:<MenuButton navigationProps={navigation} />
-    })
+    screen:Collector
   }
 })
 
 const FormStackNav = createStackNavigator({
   Form:{
     screen:MainForm,
-    navigationOptions:({navigation})=>({
-        headerTransparent:{
-          position:'absolute',
-          backgroundColor: 'transparent',
-          zIndex:100,
-          top:0,
-          left:0,
-          right:0
-      },
-      headerLeft:<MenuButton navigationProps={navigation} />
-    })
-  }
-})
-const InfoStackNav = createStackNavigator({
-  Info:{
-    screen:Info,
-    navigationOptions:({navigation})=>({
-        headerTransparent:{
-          position:'absolute',
-          backgroundColor: 'transparent',
-          zIndex:100,
-          top:0,
-          left:0,
-          right:0
-      },
-      headerLeft:<MenuButton navigationProps={navigation} />
-    })
-  }
-})
-const HowToStackNav = createStackNavigator({
-  HowTo:{
-    screen:HowTo,
-    navigationOptions:({navigation})=>({
-        headerTransparent:{
-          position:'absolute',
-          backgroundColor: 'transparent',
-          zIndex:100,
-          top:0,
-          left:0,
-          right:0
-      },
-      headerLeft:<MenuButton navigationProps={navigation} />
-    })
-  }
-})
-const RecycleStackNav = createStackNavigator({
-  RecycleInfo:{
-    screen:RecycleInfo,
-    navigationOptions:({navigation})=>({
-        headerTransparent:{
-          position:'absolute',
-          backgroundColor: 'transparent',
-          zIndex:100,
-          top:0,
-          left:0,
-          right:0
-      },
-      headerLeft:<MenuButton navigationProps={navigation} />
-    })
-  }
-})
-const UnrecycleStackNav = createStackNavigator({
-  UnrecycleInfo:{
-    screen:UnrecycleInfo,
-    navigationOptions:({navigation})=>({
-        headerTransparent:{
-          position:'absolute',
-          backgroundColor: 'transparent',
-          zIndex:100,
-          top:0,
-          left:0,
-          right:0
-      },
-      headerLeft:<MenuButton navigationProps={navigation} />
-    })
-  }
-})
-const OrganicStackNav = createStackNavigator({
-  OrganicInfo:{
-    screen:OrganicInfo,
-    navigationOptions:({navigation})=>({
-        headerTransparent:{
-          position:'absolute',
-          backgroundColor: 'transparent',
-          zIndex:100,
-          top:0,
-          left:0,
-          right:0
-      },
-      headerLeft:<MenuButton navigationProps={navigation} />
-    })
-  }
-})
-const OtherStackNav = createStackNavigator({
-  Other:{
-    screen:Other,
-    navigationOptions:({navigation})=>({
-        headerTransparent:{
-          position:'absolute',
-          backgroundColor: 'transparent',
-          zIndex:100,
-          top:0,
-          left:0,
-          right:0
-      },
-      headerLeft:<MenuButton navigationProps={navigation} />
-    })
   }
 })
 
@@ -276,16 +136,20 @@ const Main = createStackNavigator({
   }
 })
 const MainInfo = createStackNavigator({
-  InfoScreen: InfoStackNav,
-  HowToScreen: HowToStackNav,
-  RecycleScreen:RecycleStackNav,
-  UnrecycleScreen:UnrecycleStackNav,
-  OrganicScreen:OrganicStackNav,
-  OtherScreen:OtherStackNav
+  InfoScreen: Info,
+  HowToScreen: HowTo,
+  RecycleScreen:RecycleInfo,
+  UnrecycleScreen:UnrecycleInfo,
+  OrganicScreen:OrganicInfo,
+  OtherScreen:Other
 },{
   initialRouteName:"InfoScreen",
   defaultNavigationOptions:{
-    header:null
+    headerStyle:{backgroundColor:'#4076bd'},
+    headerTintColor:'#fff',
+    headerTitleStyle:{
+      fontSize:25
+    }
   },
   navigationOptions:{
     drawerLabel:'Info',
@@ -319,13 +183,35 @@ const CustomDrawerComponent = (props)=>{
 }
 
 const DrawerNav = createDrawerNavigator({
-  ProfileDrawer: ProfileStackNav,
-  InfoDrawer: MainInfo,
-  MapDrawer: Main,
-  CurrentDrawer: CurrentStackNav,
-  HistoryDrawer: HistoryStackNav,
+  ProfileDrawer: {
+    screen:ProfileStackNav,
+    navigationOptions: ({ navigation }) => ({
+      drawerLockMode: 'locked-closed'
+    })
+  },
+  InfoDrawer: {
+    screen:MainInfo,
+    navigationOptions: ({ navigation }) => ({
+      drawerLockMode: 'locked-closed'
+    })
+  },
+  MapDrawer: {
+    screen:Main
+  },
+  CurrentDrawer: {
+    screen:CurrentStackNav,
+    navigationOptions: ({ navigation }) => ({
+      drawerLockMode: 'locked-closed'
+    })
+  },
+  HistoryDrawer: {
+    screen:HistoryStackNav,
+    navigationOptions: ({ navigation }) => ({
+      drawerLockMode: 'locked-closed',
+    })
+  },
 },{
-  initialRouteName:"CurrentDrawer",
+  initialRouteName:"MapDrawer",
   contentComponent:CustomDrawerComponent,
   drawerWidth:width*0.7,
   drawerBackgroundColor:"#2196f3",
@@ -339,7 +225,7 @@ const DrawerNav = createDrawerNavigator({
 });
 
 const Switch = createSwitchNavigator({
-  // Auth: Auth,
+  Auth: Auth,
   MainFlow: DrawerNav
 });
 

@@ -1,12 +1,13 @@
 import React,{Component} from 'react';
 import {Text,View,ImageBackground,TouchableOpacity,Image,TextInput,StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import {displayCollectorDialog,collectorEmailChanged, checkEmail} from '../actions';
+import {displayCollectorDialog,collectorEmailChanged, checkEmail, resetCollectorDialog} from '../actions';
 import NewButton from '../components/NewButton';
 import CustomerInputDialog from '../components/CustometInputDialog';
 import CheckButton from '../components/CheckButton';
 import Card from '../components/Card';
 import CardSection from '../components/CardSection';
+import BackToMapButton from '../components/BackToMapButton';
 
 let spot_ref = null;
 let spot_street = null;
@@ -14,6 +15,30 @@ let spot_city = null;
 let spot_district = null;
 
 class MainForm extends Component{
+    static navigationOptions =({navigation}) => {
+        return{
+          headerTitle:'Use as',
+          headerStyle:{backgroundColor:'#4076bd'},
+          headerTintColor:'#fff',
+          headerTitleStyle:{
+            fontSize:25
+          },
+          headerLeft:() => (
+            <BackToMapButton navigationProps={navigation} />
+          )
+        }
+    };
+    componentDidMount(){
+        this.willFocusSubscription = this.props.navigation.addListener(
+            'willFocus',
+            () => {
+              this.props.resetCollectorDialog();
+            }
+          );
+    }
+    componentWillUnmount(){
+        this.willFocusSubscription.remove();
+    }
 
     onPressBack=()=>{
         this.props.navigation.navigate('Map')
@@ -36,7 +61,7 @@ class MainForm extends Component{
                     <View style={{alignItems:'center'}}>
                         <CustomerInputDialog
                         keyType={'default'} 
-                        placeholder={"collector@gmail.com"}
+                        placeholder={"example@gmail.com"}
                         value={this.props.collector_email} 
                         onChangeText={this.onCollectorEmailChange.bind(this)} />
                         <Text style={{color:'#d32f2f',fontSize:15,fontWeight:"100"}}>{this.props.notFoundMessage}</Text>
@@ -110,6 +135,7 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {
+    resetCollectorDialog,
     displayCollectorDialog,
     collectorEmailChanged,
     checkEmail

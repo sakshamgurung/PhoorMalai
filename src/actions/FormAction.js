@@ -8,7 +8,6 @@ import{
 } from './types';
 import axios from 'axios';
 import Config from 'react-native-config';
-import {JWT_TOKEN} from 'react-native-dotenv';
 
 export const quantityChanged = (text)=> {
   return({
@@ -38,9 +37,8 @@ export const formSubmitted = ({spot_ref, wasteType, quantity})=> {
       if(qty < 0 ){
         onFail(dispatch);
       }
-      //let token = await AsyncStorage.getItem('token');
-      let token = JWT_TOKEN;
-      axios.post(Config.SPOT_POST_API_DEVICE,{
+      let token = await AsyncStorage.getItem('token');
+      axios.post(Config.SPOT_POST_API,{
         spot_list_ref: spot_ref,
         waste_type: wasteType,
         quantity_in_kg: qty,

@@ -22,13 +22,4 @@ class WelcomeScreen extends Component{
     }
 }
 
-const styles = StyleSheet.create({
-   viewStyle:{
-    width:'100%',
-    height:'100%',
-    justifyContent:'center',
-    alignItems:'center'
-   }
-});
-
 export default WelcomeScreen;

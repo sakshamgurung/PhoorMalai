@@ -6,6 +6,7 @@ import CollectorCard from '../components/CollectorCard';
 import CollectorCardSection from '../components/CollectorCardSection';
 import CardSection from '../components/CardSection';
 import NewButton from '../components/NewButton';
+import BackToMainFormButton from '../components/BackToMainFormButton';
 
 let spot_ref = null;
 let spot_street = null;
@@ -13,6 +14,19 @@ let spot_city = null;
 let spot_district = null;
 let collector_email = null;
 class Collector extends Component{
+  static navigationOptions =({navigation}) => {
+    return{
+      headerTitle:'As collector',
+      headerStyle:{backgroundColor:'#4076bd'},
+      headerTintColor:'#fff',
+      headerTitleStyle:{
+        fontSize:25
+      },
+      headerLeft:() => (
+        <BackToMainFormButton navigationProps={navigation} />
+      )
+    }
+  };
   componentDidMount(){
     this.props.showLocationWasteData({spot_ref, collector_email});
   }

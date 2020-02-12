@@ -24,7 +24,7 @@ class MapTest extends Component {
   componentWillUnmount(){
     Geolocation.clearWatch(this.locationWatchId);
   }
-  
+
   onButtonPress = ()=>{
     const {
       lat, lon
@@ -40,23 +40,24 @@ class MapTest extends Component {
     });
   }
   render() {
-    // if(this.props.loadSpotMarker){
-     let dumpingMarkers = this.props.dumpSiteLocation.map(data=>(
-          <MapView.Marker  
-            key={data._id}
-            coordinate={{latitude:data.loc[0],longitude:data.loc[1]}}
-            description={data._id} 
-            onPress={()=> this.gotoFormScreen(data)}
-          >
-            <View style={styles.trashIconStyles}>
-              <FontAwesome5Icon name='trash-restore' color='rgb(255, 255, 255)' size={15}/>
-            </View>
-          </MapView.Marker>
-      ));
-    //}
+    this.dumpingMarkers = this.props.dumpSiteLocation.map((data)=>(
+      /*while using coordinate attribute the value should preserve it's precesion else marker
+      will not appear*/
+      <MapView.Marker  
+      key={data._id}
+      coordinate={data.loc}
+      title={data.address[0].street}
+      description={data.address[0].city,data.address[0].district} 
+      onPress={()=> this.gotoFormScreen(data)}
+      >
+        <View style={styles.trashIconStyles}>
+          <FontAwesome5Icon name='trash-restore' color='rgb(255, 255, 255)' size={15}/>
+        </View>
+      </MapView.Marker>
+    ));
     return (
       <View style={styles.container}>
-        <MapView 
+        <MapView
           showsUserLocation
           followsUserLocation
           style={styles.map}
@@ -67,7 +68,7 @@ class MapTest extends Component {
             longitudeDelta:0.0121
           }}
           >
-        {dumpingMarkers}
+          {this.dumpingMarkers}
         </MapView>
        
         <MarkSpotButton onPress = {this.onButtonPress.bind(this)}/>

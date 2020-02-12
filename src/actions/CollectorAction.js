@@ -7,7 +7,7 @@ import {
 } from './types';
 import axios from 'axios';
 import Config from 'react-native-config';
-import {JWT_TOKEN} from 'react-native-dotenv';
+//import {JWT_TOKEN} from 'react-native-dotenv';
 
 let organic = null;
 let recycle = null;
@@ -17,13 +17,8 @@ let other = null;
 export const showLocationWasteData = ({spot_ref,collector_email}) => {
   return async(dispatch) => {
     try {
-      organic = 0;
-      recycle = 0;
-      unrecycle = 0;
-      other = 0;
-      //let token = await AsyncStorage.getItem('token');
-      let token = JWT_TOKEN;
-      axios.post(Config.COLLECTOR_SHOW_API_DEVICE,{
+      let token = await AsyncStorage.getItem('token');
+      axios.post(Config.COLLECTOR_SHOW_API,{
           spot_list_ref: spot_ref,
           collector_email: collector_email
         }, {
@@ -42,9 +37,8 @@ export const showLocationWasteData = ({spot_ref,collector_email}) => {
 export const collectWaste = (spot_ref) =>{
   return async(dispatch) => {
     try {
-      //let token = await AsyncStorage.getItem('token');
-      let token = JWT_TOKEN;
-      axios.post(Config.COLLECTOR_CLEAR_API_DEVICE,{
+      let token = await AsyncStorage.getItem('token');
+      axios.post(Config.COLLECTOR_CLEAR_API,{
         spot_list_ref:spot_ref,
         history_flag:true
       },{
@@ -83,6 +77,10 @@ const counter = (wasteData) => {
   }
 }
 const processData = (data) => {
+  organic = 0;
+  recycle = 0;
+  unrecycle = 0;
+  other = 0;
   data.map(wasteData =>{
     counter(wasteData);
   });
@@ -90,7 +88,6 @@ const processData = (data) => {
 
 const onSuccess = (dispatch, data) => {
   processData(data);
-  console.log(organic+"/"+recycle+"/"+unrecycle+"/"+other);
   dispatch({
     type: LOCATION_WASTE_DATA_LOADED,
     payload: {organic, recycle, unrecycle, other}

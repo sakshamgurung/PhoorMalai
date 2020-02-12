@@ -5,7 +5,6 @@ import {
 } from './types';
 import axios from 'axios';
 import Config from 'react-native-config';
-import {JWT_TOKEN} from 'react-native-dotenv';
 
 let organicByMonth = [0,0,0,0,0,0,0,0,0,0,0,0,0];
 let recycleByMonth = [0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -25,9 +24,8 @@ let i = 0;
 export const historyDataLoading = (monthId) => {
   return async(dispatch) => {
     try {
-      //let token = await AsyncStorage.getItem('token');
-      let token = JWT_TOKEN;
-      axios.get(Config.HISTORY_DATA_API_DEVICE,{headers:{'x-auth-token':token}})
+      let token = await AsyncStorage.getItem('token');
+      axios.get(Config.HISTORY_DATA_API,{headers:{'x-auth-token':token}})
       .then((res)=> onSuccess(dispatch,res.data,monthId))
       .catch(()=> onFail(dispatch));
     } catch (error) {

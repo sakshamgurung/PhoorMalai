@@ -1,13 +1,20 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native'
 import OptionalCard from '../components/OptionalCard'
+import BackToMainInfoButton from '../components/BackToMainInfoButton';
+
 class HowTo extends Component {
+  static navigationOptions =({navigation}) => {
+    return{
+      title: navigation.getParam('title'),
+      headerLeft:() => (
+        <BackToMainInfoButton navigationProps={navigation} />
+      )
+    }
+  };
   render() {
     return (
       <View style={{flex:1, backgroundColor:"#2196f3"}}>
-        <Text style={{color:"#ffffff", textAlign:"center", fontSize:25, fontWeight:"100",marginTop:30}}> 
-        How to use this app?
-        </Text>
         <ScrollView>
           <OptionalCard title="Choose waste spot" src={require('../images/trashIcon.png')}>
             First step: Choose nearest predefined location from map interface.
